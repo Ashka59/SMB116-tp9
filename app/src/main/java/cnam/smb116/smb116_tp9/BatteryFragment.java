@@ -7,18 +7,16 @@ import android.content.IntentFilter;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
+import androidx.fragment.app.Fragment;
+
+import java.util.Objects;
 
 public class BatteryFragment extends Fragment {
 
-    private static final String TAG = "BatteryFragment";
     private View view;
     private BroadcastReceiver batteryInfoReceiver;
 
@@ -74,13 +72,13 @@ public class BatteryFragment extends Fragment {
         intentFilter.addAction(Intent.ACTION_POWER_DISCONNECTED);
         intentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);
 
-        getActivity().registerReceiver(batteryInfoReceiver, intentFilter);
+        Objects.requireNonNull(getActivity()).registerReceiver(batteryInfoReceiver, intentFilter);
     }
 
     private void updateBatteryData(Intent intent) {
 
-        Boolean present = intent.getBooleanExtra(BatteryManager.EXTRA_PRESENT, false);
-        mPresent.setText("Present: "+String.valueOf(present));
+        boolean present = intent.getBooleanExtra(BatteryManager.EXTRA_PRESENT, false);
+        mPresent.setText("Present: "+ present);
 
         int health = intent.getIntExtra(BatteryManager.EXTRA_HEALTH, 0);
         int healthLbl = -1;
@@ -208,13 +206,10 @@ public class BatteryFragment extends Fragment {
     public long getBatteryCapacity(Context ctx) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             BatteryManager mBatteryManager = (BatteryManager) ctx.getSystemService(Context.BATTERY_SERVICE);
-            Long chargeCounter = mBatteryManager.getLongProperty(BatteryManager.BATTERY_PROPERTY_CHARGE_COUNTER);
-            Long capacity = mBatteryManager.getLongProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
+            long chargeCounter = mBatteryManager.getLongProperty(BatteryManager.BATTERY_PROPERTY_CHARGE_COUNTER);
+            long capacity = mBatteryManager.getLongProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
 
-            if (chargeCounter != null && capacity != null) {
-                long value = (long) (((float) chargeCounter / (float) capacity) * 100f);
-                return value;
-            }
+            return (long) (((float) chargeCounter / (float) capacity) * 100f);
         }
 
         return 0;
@@ -229,6 +224,6 @@ public class BatteryFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        getActivity().unregisterReceiver(batteryInfoReceiver);
+        Objects.requireNonNull(getActivity()).unregisterReceiver(batteryInfoReceiver);
     }
 }

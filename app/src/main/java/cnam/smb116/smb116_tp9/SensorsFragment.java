@@ -14,9 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Objects;
+
 public class SensorsFragment extends Fragment implements SensorEventListener {
 
-    private static final String TAG = "SensorsFragment";
     private SensorManager mSensorManager;
 
     private Sensor mAccelerometer;
@@ -25,25 +26,20 @@ public class SensorsFragment extends Fragment implements SensorEventListener {
     private Sensor mMagneticField;
     private Sensor mPressure;
 
-    private TextView mAccelerometreTitle;
     private TextView mAccelerometreX;
     private TextView mAccelerometreY;
     private TextView mAccelerometreZ;
     private TextView mAccelerometrePrecision;
-    private TextView mGyroscopeTitle;
     private TextView mGyroscopeX;
     private TextView mGyroscopeY;
     private TextView mGyroscopeZ;
     private TextView mGyroscopePrecision;
-    private TextView mLumiereTitle;
     private TextView mLumiere;
     private TextView mLumierePrecision;
-    private TextView mChampMagnetiqueTitle;
     private TextView mChampMagnetiqueX;
     private TextView mChampMagnetiqueY;
     private TextView mChampMagnetiqueZ;
     private TextView mChampMagnetiquePrecision;
-    private TextView mPressionTitle;
     private TextView mPression;
     private TextView mPressionPrecision;
     private View view;
@@ -57,7 +53,7 @@ public class SensorsFragment extends Fragment implements SensorEventListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_sensors, container, false);
-        mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        mSensorManager = (SensorManager) Objects.requireNonNull(getActivity()).getSystemService(Context.SENSOR_SERVICE);
         configureSensors();
         bindView();
 
@@ -107,27 +103,27 @@ public class SensorsFragment extends Fragment implements SensorEventListener {
     }
 
     private void bindView(){
-        mAccelerometreTitle = (TextView) view.findViewById(R.id.accelerometre_title);
-        mAccelerometreX = (TextView) view.findViewById(R.id.accelerometre_x);
-        mAccelerometreY = (TextView) view.findViewById(R.id.accelerometre_y);
-        mAccelerometreZ = (TextView) view.findViewById(R.id.accelerometre_z);
-        mAccelerometrePrecision = (TextView) view.findViewById(R.id.accelerometre_precision);
-        mGyroscopeTitle = (TextView) view.findViewById(R.id.gyroscope_title);
-        mGyroscopeX = (TextView) view.findViewById(R.id.gyroscope_x);
-        mGyroscopeY = (TextView) view.findViewById(R.id.gyroscope_y);
-        mGyroscopeZ = (TextView) view.findViewById(R.id.gyroscope_z);
-        mGyroscopePrecision = (TextView) view.findViewById(R.id.gyroscope_precision);
-        mLumiereTitle = (TextView) view.findViewById(R.id.lumiere_title);
-        mLumiere = (TextView) view.findViewById(R.id.lumiere_lumiere);
-        mLumierePrecision = (TextView) view.findViewById(R.id.lumiere_precision);
-        mChampMagnetiqueTitle = (TextView) view.findViewById(R.id.champ_magnetique_title);
-        mChampMagnetiqueX = (TextView) view.findViewById(R.id.champ_magnetique_x);
-        mChampMagnetiqueY = (TextView) view.findViewById(R.id.champ_magnetique_y);
-        mChampMagnetiqueZ = (TextView) view.findViewById(R.id.champ_magnetique_z);
-        mChampMagnetiquePrecision = (TextView) view.findViewById(R.id.champ_magnetique_precision);
-        mPressionTitle = (TextView) view.findViewById(R.id.pression_title);
-        mPression = (TextView) view.findViewById(R.id.pression);
-        mPressionPrecision = (TextView) view.findViewById(R.id.pression_precision);
+        TextView mAccelerometreTitle = view.findViewById(R.id.accelerometre_title);
+        mAccelerometreX = view.findViewById(R.id.accelerometre_x);
+        mAccelerometreY = view.findViewById(R.id.accelerometre_y);
+        mAccelerometreZ = view.findViewById(R.id.accelerometre_z);
+        mAccelerometrePrecision = view.findViewById(R.id.accelerometre_precision);
+        TextView mGyroscopeTitle = view.findViewById(R.id.gyroscope_title);
+        mGyroscopeX = view.findViewById(R.id.gyroscope_x);
+        mGyroscopeY = view.findViewById(R.id.gyroscope_y);
+        mGyroscopeZ = view.findViewById(R.id.gyroscope_z);
+        mGyroscopePrecision = view.findViewById(R.id.gyroscope_precision);
+        TextView mLumiereTitle = view.findViewById(R.id.lumiere_title);
+        mLumiere = view.findViewById(R.id.lumiere_lumiere);
+        mLumierePrecision = view.findViewById(R.id.lumiere_precision);
+        TextView mChampMagnetiqueTitle = view.findViewById(R.id.champ_magnetique_title);
+        mChampMagnetiqueX = view.findViewById(R.id.champ_magnetique_x);
+        mChampMagnetiqueY = view.findViewById(R.id.champ_magnetique_y);
+        mChampMagnetiqueZ = view.findViewById(R.id.champ_magnetique_z);
+        mChampMagnetiquePrecision = view.findViewById(R.id.champ_magnetique_precision);
+        TextView mPressionTitle = view.findViewById(R.id.pression_title);
+        mPression = view.findViewById(R.id.pression);
+        mPressionPrecision = view.findViewById(R.id.pression_precision);
     }
 
     public String getStringAccuracy(int precision){

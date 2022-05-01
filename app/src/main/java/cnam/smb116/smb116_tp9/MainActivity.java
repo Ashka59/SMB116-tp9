@@ -1,7 +1,6 @@
 package cnam.smb116.smb116_tp9;
 
 import android.os.Bundle;
-import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -9,7 +8,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
     private BottomNavigationView bottomNavigationView;
 
     @Override
@@ -22,18 +20,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void configureBottomNavListener(){
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.Item_sensors:
-                        putFragment(new SensorsFragment());
-                        break;
-                    case R.id.Item_battery:
-                        putFragment(new BatteryFragment());
-                }
-                return true;
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.Item_sensors:
+                    putFragment(new SensorsFragment());
+                    break;
+                case R.id.Item_battery:
+                    putFragment(new BatteryFragment());
             }
+            return true;
         });
     }
 
